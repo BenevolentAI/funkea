@@ -5,7 +5,7 @@ become too costly. In these cases, we can create Scala versions of these UDFs.
 
 ## Build
 
-To build the `ai.beno.pmpt.genetics` package, assuming you already have `scala` installed, run the following:
+To build the `ai.benevolent` package, assuming you already have `scala` installed, run the following:
 
 ```shell
 sbt clean package
@@ -19,7 +19,7 @@ from py4j.java_gateway import JVMView
 from pyspark.sql import SparkSession
 
 package_jar = "path/to/spark-udf_2.12-0.1.0.jar"
-package_name = "ai.beno.pmpt.genetics"
+package_name = "ai.benevolent"
 udf_name = "VariantIsIndependent"
 class_path = package_name + "." + udf_name
 
@@ -58,7 +58,7 @@ build.sbt  # defines the build process for the project -- read by `sbt` (scala b
 ```
 
 Thus, all new functionality should be added somewhere under `src/main`. Moreover, it is recommended for new source code
-to be added under `src/main/scala/ai/beno/pmpt/genetics` (deep folder structure is a convention of Java-derived
+to be added under `src/main/scala/ai/benevolent` (deep folder structure is a convention of Java-derived
 languages).
 
 ### Dependencies
@@ -74,7 +74,7 @@ A simple UDF example may look like this:
 ```scala
 // define the package this UDF belongs to
 // note: in scala this gives you access to all items under the package (e.g. UDFWrapper)
-package ai.beno.pmpt.genetics
+package ai.benevolent
 
 // import the required items
 import org.apache.spark.sql.expressions.UserDefinedFunction
