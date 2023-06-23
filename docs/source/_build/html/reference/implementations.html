@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Implementations &#8212; funkea 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DEPICT" href="implementations.depict.html" />
+    <link rel="prev" title="Types" href="core.utils.types.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-funkea.implementations">
+<span id="implementations"></span><h1>Implementations<a class="headerlink" href="#module-funkea.implementations" title="Permalink to this heading">¶</a></h1>
+<p>A set of popular functional enrichment method implementations.</p>
+<p>This sub-package contains implementations of popular functional enrichment methods. Each
+implementation is a class that inherits from the abstract base class <a class="reference internal" href="core.workflow.html#funkea.core.workflow.Workflow" title="funkea.core.workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a>. It is
+recommended to use the implementations through the <a class="reference internal" href="core.workflow.html#funkea.core.workflow.Workflow" title="funkea.core.workflow.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workflow</span></code></a> class, which provides a
+consistent interface to all implementations. Moreover, it is recommended to use the default
+configurations of these methods, which can be accessed via the <code class="xref py py-func docutils literal notranslate"><span class="pre">Workflow.default()</span></code> method.</p>
+<p>The following implementations are currently available:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="implementations.depict.html#funkea.implementations.depict.DEPICT" title="funkea.implementations.depict.DEPICT"><code class="xref py py-class docutils literal notranslate"><span class="pre">DEPICT</span></code></a>: DEPICT (Data-driven Expression-Prioritized Integration for Complex Traits)
+is a method that integrates GWAS summary statistics with gene expression data to identify
+gene sets that are enriched for trait-associated variants.</p></li>
+<li><p><a class="reference internal" href="implementations.fisher.html#funkea.implementations.fisher.Fisher" title="funkea.implementations.fisher.Fisher"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fisher</span></code></a>: Fisher’s exact test is a statistical test used to determine if there are
+non-random associations between two categorical variables.</p></li>
+<li><p><a class="reference internal" href="implementations.garfield.html#funkea.implementations.garfield.GARFIELD" title="funkea.implementations.garfield.GARFIELD"><code class="xref py py-class docutils literal notranslate"><span class="pre">GARFIELD</span></code></a>: GARFIELD (GWAS Analysis of Regulatory or Functional Information Enrichment
+with LD correction) is a method that integrates GWAS summary statistics with functional
+annotations to identify gene sets that are enriched for trait-associated variants.</p></li>
+<li><p><a class="reference internal" href="implementations.ldsc.html#funkea.implementations.ldsc.LDSC" title="funkea.implementations.ldsc.LDSC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LDSC</span></code></a>: LDSC (Linkage Disequilibrium Score Regression) is a method that uses GWAS
+summary statistics to estimate heritability and genetic correlation.</p></li>
+<li><p><a class="reference internal" href="implementations.snpsea.html#funkea.implementations.snpsea.SNPsea" title="funkea.implementations.snpsea.SNPsea"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPsea</span></code></a>: SNPsea is a method that integrates GWAS summary statistics with functional
+annotations to identify gene sets that are enriched for trait-associated variants.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementations.depict.html">DEPICT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementations.fisher.html">Fisher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementations.garfield.html">GARFIELD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementations.ldsc.html">LDSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementations.snpsea.html">SNPsea</a></li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">funkea</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="components.html">funkea.components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">funkea.core</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">funkea.implementations</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">funkea API</a><ul>
+      <li>Previous: <a href="core.utils.types.html" title="previous chapter">Types</a></li>
+      <li>Next: <a href="implementations.depict.html" title="next chapter">DEPICT</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023-2023, Benjamin Tenmann.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/reference/implementations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+    "gtex": null,
+    "ld_reference_data": null,
+    "depict_null_loci": null,
+    "chromosomes": null,
+    "snpsea_background_variants": null,
+    "garfield_control_covariates": null,
+    "ldsc_controlling_ld_scores": null,
+    "ldsc_weighting_ld_scores": null
+}

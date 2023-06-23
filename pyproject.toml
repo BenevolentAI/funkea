@@ -1,0 +1,93 @@
+[tool.poetry]
+name = "funkea"
+version = "0.1.0"
+description = "Perform functional enrichment analysis at scale."
+authors = ["benjamin.tenmann <benjamin.tenmann@benevolent.ai>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "funkea" },
+    { include = "ldsc" }
+]
+include = [
+    { path = "funkea/core/resources/*", format = ["sdist", "wheel"] },
+    { path = "scala", format = "sdist" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+statsmodels = "^0.13.5"
+pyspark = {extras = ["sql"], version = "^3.3.2"}
+pydantic = "^1.10.6"
+jax = "^0.4.6"
+jaxlib = "^0.4.6"
+numpy = "^1.24.2"
+pandas = "^1.5.3"
+scipy = "^1.10.1"
+networkx = "^3.0"
+quinn = "^0.10.0"
+pydantic-spark = "^0.2.0"
+rich = "^13.3.3"
+fire = "^0.5.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.2"
+pytest-cov = "^4.0.0"
+pre-commit = "^3.2.0"
+mypy = "^1.1.1"
+chispa = "^0.9.2"
+
+
+[tool.poetry.group.docs.dependencies]
+jupyterlab = "^3.6.3"
+sphinx = ">=4,<6"
+myst-parser = ">=0.18.0,<0.19.0"
+myst-nb = "^0.17.1"
+
+[tool.poetry.scripts]
+funkea-cli = "funkea.__main__:main"
+
+[tool.poetry.build]
+generate-setup-file = false
+script = "build.py"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+ [tool.black]
+ line-length = 100
+ include = '\.pyi?$'
+ target-version = ['py310']
+ skip-string-normalization = true
+ exclude = '''
+ /(
+     \.git
+   | \.hg
+   | \.mypy_cache
+   | \.tox
+   | \.venv
+   | _build
+   | buck-out
+   | build
+   | dist
+ )/
+ '''
+
+[tool.pytest.ini_options]
+filterwarnings = [
+   "ignore:pkg_resources is deprecated as an API:DeprecationWarning",
+    "ignore:Deprecated call to `pkg_resources.declare_namespace.+.:DeprecationWarning",
+   "ignore:distutils Version classes are deprecated. Use packaging.version instead.:DeprecationWarning",
+   "ignore:iteritems is deprecated and will be removed in a future version. Use .items instead.:FutureWarning"
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "ldsc.*"
+# unfortunately, due to the way we handle the LA backend selection, the numpy array type hints
+# causes issues. Was not able to find a better solution fot this at the moment
+disable_error_code = "name-defined"

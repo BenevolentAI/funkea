@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Data &#8212; funkea 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Method" href="core.method.html" />
+    <link rel="prev" title="Core" href="core.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-funkea.core.data">
+<span id="data"></span><h1>Data<a class="headerlink" href="#module-funkea.core.data" title="Permalink to this heading">¶</a></h1>
+<p>Data and annotation components.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.AnnotationComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">AnnotationComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AnnotationColumns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#funkea.core.data.PartitionType" title="funkea.core.data.PartitionType"><span class="pre">PartitionType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_operation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="components.filtering.html#funkea.components.filtering.FilterOperation" title="funkea.components.filtering.FilterOperation"><span class="pre">FilterOperation</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalisation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="components.normalisation.html#funkea.components.normalisation.Normalisation" title="funkea.components.normalisation.Normalisation"><span class="pre">Normalisation</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.AnnotationComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the annotation data.</p>
+<p>Annotations are sequence spans with genome-wide coordinates; that is, they have a start, end
+and chromosome position. It is assumed that <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&lt;=</span> <span class="pre">end</span></code>, i.e. the annotation should be
+strand corrected.
+Annotations are furthermore assumed to be partitioned into <span class="math notranslate nohighlight">\(K\)</span> partitions. For example,
+genes can be partitioned into tissues by activity. Partitioning can also be either “soft” or
+“hard” (see <code class="docutils literal notranslate"><span class="pre">PartitionType</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>columns</strong> – The columns in the loaded dataframe.</p></li>
+<li><p><strong>partition_type</strong> – The type of the partitioning.</p></li>
+<li><p><strong>filter_operation</strong> – An optional filter operation. This can be used to subset the annotations
+at runtime.</p></li>
+<li><p><strong>normalisation</strong> – An optional normalisation step (this is performed <em>after</em> the filter
+operation). Can be used to normalise the <code class="docutils literal notranslate"><span class="pre">values</span></code> column at runtime.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.AnnotationComponent.get_annotations_count">
+<span class="sig-name descname"><span class="pre">get_annotations_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#funkea.core.data.AnnotationComponent.get_annotations_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the total number of unique annotations.</p>
+<p class="rubric">Notes</p>
+<p>This is the count <em>after</em> the filter operation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.AnnotationComponent.get_filter_operation">
+<span class="sig-name descname"><span class="pre">get_filter_operation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="components.filtering.html#funkea.components.filtering.FilterOperation" title="funkea.components.filtering.FilterOperation"><span class="pre">FilterOperation</span></a></span></span><a class="headerlink" href="#funkea.core.data.AnnotationComponent.get_filter_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the filter operation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.AnnotationComponent.get_normalisation">
+<span class="sig-name descname"><span class="pre">get_normalisation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="components.normalisation.html#funkea.components.normalisation.Normalisation" title="funkea.components.normalisation.Normalisation"><span class="pre">Normalisation</span></a></span></span><a class="headerlink" href="#funkea.core.data.AnnotationComponent.get_normalisation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the normalisation operation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.AnnotationComponent.get_partitions_count">
+<span class="sig-name descname"><span class="pre">get_partitions_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#funkea.core.data.AnnotationComponent.get_partitions_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the total number of unique partitions.</p>
+<p class="rubric">Notes</p>
+<p>This is the count <em>after</em> the filter operation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="funkea.core.data.AnnotationComponent.hard_partitions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hard_partitions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#funkea.core.data.AnnotationComponent.hard_partitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells whether the partition type is hard.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.ChromosomeComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">ChromosomeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.ChromosomeComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads information on the human chromosomes.</p>
+<p>This component is mainly used for providing upper bounds on locus end positions. Since this is
+cosmetic adjustment, it is optional.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.DataComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">DataComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.DataComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads tabular data either from disk or memory.</p>
+<p>A data component is an object which provides programs access to a particular data source in
+tabular format. These sources can be provided either as paths to static files, or dataframes
+loaded into the current Spark session. Unlike most other objects in <code class="docutils literal notranslate"><span class="pre">funkea</span></code>, data components
+do not inherit from <code class="docutils literal notranslate"><span class="pre">pyspark.ml.Transformer</span></code>, as this would constrain their instantiation to
+only once a SparkSession is active. But since data components can load from disk, initialisation
+should not need to depend on the SparkSession being active.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.DataComponent.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#funkea.core.data.DataComponent.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the dataset into a Spark dataframe.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.GTEx">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">GTEx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_operation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="components.filtering.html#funkea.components.filtering.FilterOperation" title="funkea.components.filtering.FilterOperation"><span class="pre">FilterOperation</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalisation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="components.normalisation.html#funkea.components.normalisation.Normalisation" title="funkea.components.normalisation.Normalisation"><span class="pre">Normalisation</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.GTEx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the GTEx data.</p>
+<p>Loads the GTEx annotation dataset, which partitions the genes into 40 tissues. The partitions
+are “soft”, as we get an expression value (non-normalised probability) for each gene-tissue
+pair. Hence, for methods which require data with hard partitions, one should use a filter
+operation to just keep certain annotation for each partition (e.g. QuantileCutoff).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_operation</strong> – An optional filter operation. Recommended if method requires annotations to
+have hard partitions.</p></li>
+<li><p><strong>normalisation</strong> – Optional normalisation applied to filtered data. The normalisation is applied
+to the <code class="docutils literal notranslate"><span class="pre">values</span></code> column. In the case of hard partitions, a dummy <code class="docutils literal notranslate"><span class="pre">values</span></code> column will
+be used (if it does not exist).</p></li>
+<li><p><strong>dataset</strong> – Path to long table GTEx data, or the Spark dataframe containing said data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.LDComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">LDComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r2_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="core.utils.types.html#funkea.core.utils.types.UnitFloat" title="funkea.core.utils.types.UnitFloat"><span class="pre">funkea.core.utils.types.UnitFloat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unbiased_r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_self_ld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyspark.sql.dataframe.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LDReferenceColumns</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">LDReferenceColumns(source_id='rsid_source',</span> <span class="pre">target_id='rsid_target',</span> <span class="pre">source_pos='pos_source',</span> <span class="pre">target_pos='pos_target',</span> <span class="pre">chromosome='chr',</span> <span class="pre">correlation='correlation',</span> <span class="pre">sample_size='sample_size',</span> <span class="pre">ancestry='ancestry')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.LDComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads linkage-disequilibrium reference data.</p>
+<p>Data component which handles LD reference data. It is used for getting tagging variants and
+loading full symmetric matrices (in long table format). It also can be used to load the bias
+corrected <span class="math notranslate nohighlight">\(r^2\)</span>.
+It assumes the LD data to be in the format produced by <code class="docutils literal notranslate"><span class="pre">PLINK</span></code>; that is, as a long table
+representing the condensed (triangular) correlation matrix. The default column names differ from
+<code class="docutils literal notranslate"><span class="pre">PLINK</span></code> however, for consistency with column names we use in other places. Moreover,
+additional (optional) columns can also be included (<code class="docutils literal notranslate"><span class="pre">sample_size</span></code>, <code class="docutils literal notranslate"><span class="pre">ancestry</span></code>), which
+may be needed for specific analyses (LD score regression, LD pruning).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r2_threshold</strong> – Optional minimum pairwise correlation between two variants returned by the
+object. This should be a float in the range <span class="math notranslate nohighlight">\([0, 1]\)</span>. If None, no thresholding
+is applied. (<code class="docutils literal notranslate"><span class="pre">default=0.20</span></code>)</p></li>
+<li><p><strong>return_unbiased_r2</strong> – Whether to apply bias correction to <span class="math notranslate nohighlight">\(r^2\)</span>. If this is true, the
+LD table has to have a column containing the sample size used for computing the
+correlation. (<code class="docutils literal notranslate"><span class="pre">default=False</span></code>)</p></li>
+<li><p><strong>return_self_ld</strong> – <code class="docutils literal notranslate"><span class="pre">PLINK</span></code> returns a condensed correlation matrix, which omits the
+correlation of a variant with itself (as it is trivial). However, in some cases it is
+useful to retain this relationship, as variants may be lost otherwise
+(see <code class="docutils literal notranslate"><span class="pre">funkea.components.locus_defnition.AddLDProxies</span></code>). (<code class="docutils literal notranslate"><span class="pre">default=False</span></code>)</p></li>
+<li><p><strong>dataset</strong> – Dataframe or filepath to the correlation table.
+(<code class="docutils literal notranslate"><span class="pre">default=funkea.core.utils.files.default.ld_reference_data</span></code>)</p></li>
+<li><p><strong>columns</strong> – Mapping of column names. (<code class="docutils literal notranslate"><span class="pre">default=LDReferenceColumns()</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.LDComponent.load_full_symmetric">
+<span class="sig-name descname"><span class="pre">load_full_symmetric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#funkea.core.data.LDComponent.load_full_symmetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the full, symmetric matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.LDComponent.load_tagged_variants">
+<span class="sig-name descname"><span class="pre">load_tagged_variants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#funkea.core.data.LDComponent.load_tagged_variants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the variants and their tags.</p>
+<p>Tags here are the variants which are in LD with a given variant, above a certain threshold.
+Unlike in the standard <code class="docutils literal notranslate"><span class="pre">load</span></code> function, this function returns each variant-ancestry pair
+and aggregates all the tagging variants into a set.
+This is used primarily in LD pruning, where we need to check that each variant we encounter
+has not been already observed in one of the tags.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dataframe with columns for variant ID, ancestry and a set of tagging variants.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.LDComponent.load_variants">
+<span class="sig-name descname"><span class="pre">load_variants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#funkea.core.data.LDComponent.load_variants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads all the unique variants in the LD data.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.PartitionType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">PartitionType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.PartitionType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the annotation partitions.</p>
+<p>Partitions can either be “hard” (binary indicator of annotation membership in a partition) or
+“soft” (annotation has distribution over partitions). For example, a hard partition may be an
+indicator of membership of a particular gene (annotation) in a given pathway (partition). A soft
+partition may be the gene expression levels of a given gene across a set of tissues.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="funkea.core.data.Sumstats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">Sumstats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#funkea.core.data.Sumstats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sumstats schema for validation purposes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="funkea.core.data.Sumstats.spark_schema">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spark_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">StructType</span></span></span><a class="headerlink" href="#funkea.core.data.Sumstats.spark_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the avro schema for the pydantic class</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="funkea.core.data.unbiased_r2_estimate">
+<span class="sig-prename descclassname"><span class="pre">funkea.core.data.</span></span><span class="sig-name descname"><span class="pre">unbiased_r2_estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Column</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Column</span></span></span><a class="headerlink" href="#funkea.core.data.unbiased_r2_estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the unbiased estimate of the squared Pearson correlation.</p>
+<p>The bias corrected <span class="math notranslate nohighlight">\(r^2\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\hat{r}^2 = r^2 - \frac{1 - r^2}{n - 2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the sample size used to compute the correlation coefficient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r2</strong> – Column containing the squared correlation coefficients.</p></li>
+<li><p><strong>n</strong> – Column containing the sample sizes used to compute the correlation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A column containing the bias corrected squared correlation coefficients.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">funkea</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="components.html">funkea.components</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core.html">funkea.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementations.html">funkea.implementations</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">funkea API</a><ul>
+  <li><a href="core.html">Core</a><ul>
+      <li>Previous: <a href="core.html" title="previous chapter">Core</a></li>
+      <li>Next: <a href="core.method.html" title="next chapter">Method</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023-2023, Benjamin Tenmann.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/reference/core.data.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
