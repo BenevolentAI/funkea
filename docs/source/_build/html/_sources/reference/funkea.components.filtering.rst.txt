@@ -1,2 +1,0 @@
-.. automodule:: funkea.components.filtering
-   :members:
