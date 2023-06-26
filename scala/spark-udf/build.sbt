@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" % "spark-sql_2.12" % "3.3.2",
+  "org.apache.spark" % "spark-sql_2.12" % "3.4.1",
   "org.scalatest" %% "scalatest" % "3.2.15" % Test,
   // below are pinned version to fix vulnerabilities detected by Snyk
   "com.google.protobuf" % "protobuf-java" % "3.22.2",

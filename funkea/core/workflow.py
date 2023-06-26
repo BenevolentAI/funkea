@@ -3,8 +3,6 @@ import copy
 import inspect
 from typing import Any, Generic, Type, TypeVar
 
-import jax
-import jax.tree_util
 import pyspark.sql.functions as F
 import pyspark.sql.types as T
 import quinn
@@ -27,6 +25,16 @@ Component = TypeVar("Component", bound=Transformer | data.DataComponent)
 
 
 def _has_component(workflow: "Workflow", component: Type[Component]) -> bool:
+    try:
+        # JAX has a lot of issues being installed on various architectures, so we only import it
+        # here if we actually need it.
+        # Moreover, this feature is not _super_ important, so we can just skip it if JAX is not
+        # installed.
+        import jax
+        import jax.tree_util
+    except (ImportError, ModuleNotFoundError):
+        return False
+
     def _f(obj: Any) -> bool | dict[str, bool]:
         if isinstance(obj, component):
             return True

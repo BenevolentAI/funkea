@@ -13,7 +13,7 @@ pip install funkea
 If you want to build from source, you can clone the repository and install using:
 
 ```shell
-git clone https://github.com/BenevolentAI/funkea
+git clone ...
 cd funkea
 pip install .
 ```
@@ -173,9 +173,13 @@ directory:
 make test
 ```
 
-This will install most dependencies if they are not present, except the Scala compiler, as this
+This will install most dependencies if they are not present, except the Java runtime, as this
 depends heavily on the user's system. Make sure to install this yourself first before running the
-tests. You can install them from [here](https://www.scala-lang.org/download/).
+tests.
+
+Note: some tests will be skipped on Linux systems with Aarch64 architecture, as JAX does not support
+this architecture. This is a known issue, and will (hopefully) be fixed in the future (see
+[here](https://github.com/google/jax/issues/7097)).
 
 ## Documentation
 

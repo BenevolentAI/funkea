@@ -17,10 +17,10 @@ include = [
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 statsmodels = "^0.13.5"
-pyspark = {extras = ["sql"], version = "^3.3.2"}
+pyspark = {version = "==3.4.1", extras = ["sql"]}
 pydantic = "^1.10.6"
-jax = "^0.4.6"
-jaxlib = "^0.4.6"
+jax = { version = "^0.4.6", optional = true }
+jaxlib = { version = "^0.4.6", optional = true }
 numpy = "^1.24.2"
 pandas = "^1.5.3"
 scipy = "^1.10.1"
@@ -44,6 +44,9 @@ jupyterlab = "^3.6.3"
 sphinx = ">=4,<6"
 myst-parser = ">=0.18.0,<0.19.0"
 myst-nb = "^0.17.1"
+
+[tool.poetry.extras]
+jax = ["jax", "jaxlib"]
 
 [tool.poetry.scripts]
 funkea-cli = "funkea.__main__:main"
@@ -83,7 +86,7 @@ filterwarnings = [
    "ignore:iteritems is deprecated and will be removed in a future version. Use .items instead.:FutureWarning"
 ]
 
-[tool.mypy]
+ [tool.mypy]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]

@@ -9,7 +9,6 @@ from importlib import import_module
 from types import ModuleType
 from typing import Any, Callable, ParamSpec, TypeVar
 
-import jax
 import pandas as pd
 
 P = ParamSpec("P")
@@ -62,6 +61,16 @@ def backend(env_var: str = "LDSC_BACKEND") -> ModuleType:
     # seems a bit nuts but perhaps smart?
     bck = _get_backend_impl(os.environ.get(env_var, "NUMPY"))
     if bck == Backend.JAX:
+        try:
+            import jax  # noqa: F401
+        except (ImportError, ModuleNotFoundError) as exc:
+            raise ImportError(
+                "JAX backend requires the `jax` and `jaxlib` packages to be installed. "
+                "Please install them via `pip install jax jaxlib` or by running "
+                "`pip install 'funkea[jax]'`. NOTE: JAX can be tricky to install on some "
+                "architectures. If you have issues, please consult the JAX "
+                "documentation (https://github.com/google/jax#installation)."
+            ) from exc
         warnings.warn(
             "Jax backend has been minimally tested.",
             UserWarning,
@@ -485,11 +494,8 @@ class ToPandasMixin:
         """
         items = self.__dict__
         if array_to_item:
-
-            def _to_item(e):
-                if isinstance(e, np.ndarray):
-                    return e.item()
-                return e
-
-            items = jax.tree_map(_to_item, items)
+            items = {
+                key: value.item() if isinstance(value, np.ndarray) else value
+                for key, value in items.items()
+            }
         return pd.DataFrame.from_dict(items, orient="index").transpose()

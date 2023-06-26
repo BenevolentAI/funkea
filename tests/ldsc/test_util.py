@@ -1,3 +1,4 @@
+import platform
 import warnings
 from importlib import import_module
 from typing import Union
@@ -42,20 +43,28 @@ class TestBackend:
 
     @pytest.mark.parametrize(["env", "module"], Cases.ENV)
     def test_backend(self, mock_env, env, module):
+        uname = platform.uname()
+        if uname.system == "Linux" and uname.machine == "aarch64" and module == "jax.numpy":
+            pytest.skip("JAX is not supported on ARM")
         mock_env(env)
 
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", UserWarning)
             assert ldsc.util.backend() is import_module(module)
 
+        try:
+            from jax import config
+        except (ImportError, ModuleNotFoundError):
+            config = None
+
         if env["LDSC_BACKEND"] == "JAX":
+            if config is None:
+                pytest.skip("JAX is not installed")
             with pytest.warns(
                 UserWarning,
                 match="Jax backend has been minimally tested.",
             ):
                 ldsc.util.backend()
-
-        from jax import config
 
         assert (
             "JAX_DBL_PRC" not in env
@@ -182,7 +191,10 @@ def test_harmonise_inputs_to_backend():
         def f(self, X, y):
             return X, y
 
-    import jax.numpy as jnp
+    try:
+        import jax.numpy as jnp
+    except (ImportError, ModuleNotFoundError):
+        return
 
     assert all(isinstance(a, np.ndarray) for a in _K().f(jnp.array([1]), jnp.array([1])))
 
