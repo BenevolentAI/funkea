@@ -13,7 +13,7 @@ pip install funkea
 If you want to build from source, you can clone the repository and install using:
 
 ```shell
-git clone ...
+git clone https://github.com/BenevolentAI/funkea
 cd funkea
 pip install .
 ```
