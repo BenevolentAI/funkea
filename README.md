@@ -8,6 +8,8 @@ Perform functional enrichment analysis at scale.
 
 ```shell
 pip install funkea
+# OR
+pip install 'funkea[jax]'  # optional JAX dependency -- enables LDSC on GPU
 ```
 
 If you want to build from source, you can clone the repository and install using:
