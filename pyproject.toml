@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "funkea"
-version = "0.1.0"
+version = "1.0.0"
 description = "Perform functional enrichment analysis at scale."
 authors = ["benjamin.tenmann <benjamin.tenmann@benevolent.ai>"]
 license = "MIT"
