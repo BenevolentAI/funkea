@@ -55,3 +55,10 @@ test: test_funkea test_ldsc test_scala
 docs: setup
 	poetry install --only docs
 	$(MAKE) -C docs/source html
+
+publish:
+	# we build the wheel first to ensure that we have the latest jars compiled
+	# then we build the sdist for the actual distribution (containing the jar)
+	# this is very hacky, but it works
+	poetry build --format wheel && rm -rf dist && poetry build --format sdist
+	poetry publish -u __token__
