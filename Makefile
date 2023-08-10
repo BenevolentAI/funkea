@@ -31,6 +31,12 @@ endif
 
 .PHONY: test docs
 
+clean:
+	find . -name "*.pyc" -delete
+	find . -name "__pycache__" -delete
+	rm -rf .pytest_cache .mypy_cache .coverage || true
+	rm -rf dist build || true
+
 setup:
 	test "$$(command -v java)" || (echo "PySpark requires Java 8 or later" && exit 1)
 	test "$$(command -v sbt)" || \
